@@ -1,3 +1,15 @@
+/*
+Develop:
+	aventura_develop
+	aventura_develop
+	pruebasDevelop
+
+Production: (Cuidado)
+	aventura_embalsa
+	aventura_embal
+	MatiasNicoNahuel
+
+*/
 use aventura_embalsa;
 
 show tables;
