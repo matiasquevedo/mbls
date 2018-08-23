@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Proyecto;
+use App\Tarea;
 
 class TareasController extends Controller
 {
@@ -21,9 +23,11 @@ class TareasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($proyectoId)
     {
-        //
+        //        dd($proyecto);
+        $proyecto = Proyecto::find($proyectoId);
+        return view('admin.tareas.create')->with("proyecto",$proyecto);
     }
 
     /**
@@ -34,7 +38,13 @@ class TareasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //        dd($request);
+        $tarea = new Tarea($request->all());
+        $tarea->proyecto_id = $request->proyecto_id;
+        $tarea->user_id = \Auth::user()->id;
+        $tarea->save();
+        flash('Se a creado la tarea ' . $tarea->name)->success();
+        return redirect()->route('proyectos.show',$tarea->proyecto_id);
     }
 
     /**
@@ -46,6 +56,8 @@ class TareasController extends Controller
     public function show($id)
     {
         //
+        $tarea = Tarea::find($id);
+        return view('admin.tareas.show')->with("tarea",$tarea);
     }
 
     /**
@@ -57,6 +69,8 @@ class TareasController extends Controller
     public function edit($id)
     {
         //
+        $tarea = Tarea::find($id);
+        return view('admin.tareas.edit')->with("tarea",$tarea);
     }
 
     /**
@@ -69,6 +83,12 @@ class TareasController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $tarea = Tarea::find($id);
+        $tarea->fill($request->all());        
+        $tarea->save();
+        flash('Se a editado la tarea ' . $tarea->name)->success();
+
+        return redirect()->route('proyectos.show',$tarea->proyecto_id);
     }
 
     /**
@@ -80,5 +100,9 @@ class TareasController extends Controller
     public function destroy($id)
     {
         //
+        $tarea = Tarea::find($id);
+        $tarea->delete();
+        flash('Se a eliminado la tarea ' . $tarea->name)->error();
+        return redirect()->route('proyectos.show',$tarea->proyecto_id);
     }
 }

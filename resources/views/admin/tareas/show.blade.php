@@ -1,44 +1,28 @@
 @extends('admin.template.main')
 
 
-@section('title','Proyecto: '.$proyecto->name)
+@section('title','Tareas: '.$tarea->name)
 
 @section('content')
 
 	<div class="container">
-  		<h3>{{$proyecto->name}}</h3>
-  		<a href="{{route('tarea.create',$proyecto->id)}}" class="btn btn-info">Nueva Tarea</a>
-  		<a href="{{route('hora.create',$proyecto->id)}}" class="btn btn-info">Agregar Horas</a>
-      <div>      	
-      @foreach($proyecto->tareas as $tarea)
-        <h4> <a href=" {{route('tareas.show', $tarea->id)}} "> <span class="label label-success">{{$tarea->name}}</span> </a>
-        	<a href="{{ route('tareas.edit', $tarea->id) }}" class="btn btn-warning">   <span class="glyphicon glyphicon-wrench">          
-        	  </span>
-        	</a>
-        	<a href="{{ route('tareas.destroy', $tarea->id) }}" class="btn btn-danger">
-        	  <span class="glyphicon glyphicon-remove"></span>
-        	</a>
-        </h4>
-      @endforeach 
-      </div>        
-
+  		<h3><a href="{{ route('proyectos.show', $tarea->proyecto_id) }}">{{$tarea->proyecto->name}}</a> / {{$tarea->name}}</h3>     
+      <h4>Horas de la Tarea</h4>
       <table class="table table-striped">
         <thead>
           <tr>
             <th>Nombre</th>
             <th>Descripcion</th>
-            <th>Tarea</th>
             <th>Fecha</th>
             <th>Horas</th>
             <th>Usuario</th>
           </tr>
         </thead>
         <tbody>
-          @foreach($horas as $hora)
+          @foreach($tarea->horas as $hora)
           <tr>
             <td><a href=" {{route('horas.show',$hora->id)}} "> {{$hora->name}}</a></td>
             <td>{{$hora->descripcion}}</td>
-            <td>{{$hora->tarea->name}}</td>
             <td>{{$hora->fecha}}</td>
             <td>{{$hora->horas}}</td>
             <td>{{$hora->user->name}}</td>

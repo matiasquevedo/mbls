@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Proyecto;
+use App\Hora;
 use Laracasts\Flash\Flash;
 use App\Http\Requests\CategoriesRequest;
 use Illuminate\Support\Facades\DB;
@@ -60,7 +61,8 @@ class ProyectosController extends Controller
     {
         //
         $proyecto = Proyecto::find($id);
-        return view('admin.proyectos.show')->with('proyecto',$proyecto);
+        $horas = Hora::all()->where('proyecto_id',$id);
+        return view('admin.proyectos.show')->with('proyecto',$proyecto)->with('horas',$horas);
     }
 
     /**
@@ -86,6 +88,11 @@ class ProyectosController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $proyecto = Proyecto::find($id);
+        $proyecto->fill($request->all());        
+        $proyecto->save();
+        flash('Se a editado el proyecto ' . $proyecto->name)->success();
+        return redirect()->route('proyectos.index');
     }
 
     /**
@@ -97,5 +104,9 @@ class ProyectosController extends Controller
     public function destroy($id)
     {
         //
+        $proyecto = Proyecto::find($id);
+        $proyecto->delete();
+        flash('Se a eliminado el proyecto ' . $proyecto->name)->error();
+        return redirect()->route('proyectos.index');
     }
 }

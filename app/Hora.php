@@ -8,14 +8,14 @@ class Hora extends Model
 {
     //
         protected $table = "horas";
-
-        protected $fillable = ['id','name','descripcion','horas'];
+        
+        protected $fillable = ['id','name','descripcion','horas','fecha','user_id','proyecto_id','tarea_id'];
 
         public function proyecto(){
             return $this->belongsTo('App\Proyecto');
         }
 
-    	public function Tarea(){
+    	public function tarea(){
             return $this->belongsTo('App\Tarea');
         }
 

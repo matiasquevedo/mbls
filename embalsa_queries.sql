@@ -1,18 +1,7 @@
-/*
-Develop:
-	aventura_develop
-	aventura_develop
-	pruebasDevelop
-
-Production: (Cuidado)
-	aventura_embalsa
-	aventura_embal
-	MatiasNicoNahuel
-
-*/
 use aventura_embalsa;
 
 show tables;
+
 
 select * from users;
 select * from categories;
@@ -26,6 +15,7 @@ select * from eventos;
 select * from eventospostview;
 select * from proveedores;
 select * from categoryactividadespost;
+select * from proyectos;
 
 
 

@@ -153,11 +153,20 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']], function(){
 		'uses'=>'TareasController@destroy',
 		'as'=>'tareas.destroy'
 	]);
+	Route::get('tarea/{proyecto}/create',[
+		'uses'=>'TareasController@create',
+		'as'=>'tarea.create'
+	]);
 
 	Route::resource('horas','HorasController');
 	Route::get('horas/{id}/destroy',[
 		'uses'=>'HorasController@destroy',
 		'as'=>'horas.destroy'
+	]);
+
+	Route::get('hora/{proyecto}/create',[
+		'uses'=>'HorasController@create',
+		'as'=>'hora.create'
 	]);
 
 
