@@ -53,6 +53,12 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']], function(){
 		'as'=>'actividades.undpost'
 	]);
 
+	Route::post('actividades/image/update',[ 
+		'uses'=>'ActividadesController@ImagesUpdate',
+		'as'=>'images.update'
+	]);
+	
+
 	
 
 	Route::get('eventos',[
@@ -274,9 +280,9 @@ Route::group(['prefix'=>'ventas','middleware'=>['auth','ventas']], function(){
 });
 
 
-
+Auth::routes();
 #
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@inicio');
 Route::get('/inicio', [
 	'uses'=>'PrincipalController@index',
 	'as'=>'principal'
@@ -309,6 +315,15 @@ Route::get('cart/add/{actividad}',[
 	'as'=>'cart.add'
 ]);
 
+Route::get('cart/destroy/{actividad}',[
+	'uses'=>'CartController@destroy',
+	'as'=>'cart.destroy'
+]);
+
+Route::get('cart/trash',[
+	'uses'=>'CartController@trash',
+	'as'=>'cart.trash'
+]);
 
 
-Auth::routes();
+

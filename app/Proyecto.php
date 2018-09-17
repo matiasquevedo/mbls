@@ -9,7 +9,7 @@ class Proyecto extends Model
     //
     protected $table = "proyectos";
 
-    protected $fillable = ['id','name','precio'];
+    protected $fillable = ['id','name','precio','totaldeHoras','precioTotal'];
 
     public function tareas(){
         return $this->hasMany('App\Tarea');

@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        
     }
 
     /**
@@ -25,12 +25,12 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-
+        $this->middleware('auth');
         #dd($request->user()->type);
         if($request->user()->type == 'admin'){
             return view('admin.index');
         }elseif ($request->user()->type == 'member') {
-            return view('editor.index');
+            return redirect()->route('principal');
         }elseif ($request->user()->type == 'even') {
             return view('eventista.index');
         }elseif ($request->user()->type == 'revisor') {
@@ -42,5 +42,9 @@ class HomeController extends Controller
         }
         
         
+    }
+
+    public function inicio(){
+        return redirect()->route('principal');
     }
 }

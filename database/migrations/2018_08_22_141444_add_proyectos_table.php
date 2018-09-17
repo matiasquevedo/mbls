@@ -18,6 +18,8 @@ class AddProyectosTable extends Migration
             $table->increments('id');
             $table->string('name',60);
             $table->string('precio');
+            $table->string('totaldeHoras');
+            $table->string('precioTotal');
             
             $table->timestamps();
         });

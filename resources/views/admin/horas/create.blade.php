@@ -50,7 +50,7 @@
 
 					<div class="form-group">
 					{!! Form::label('horas','Cantidad de Horas*') !!}
-					{!! Form::text('horas',null,['class'=>'form-control','placeholder'=>'Fecha']) !!}
+					{!! Form::text('horas',null,['class'=>'form-control','placeholder'=>'Horas']) !!}
 					</div>
 
 					<div class="form-group" style="display: none !important">

@@ -9,7 +9,7 @@ class Tarea extends Model
     //
     protected $table = "tareas";
 
-    protected $fillable = ['id','name','descripcion'];
+    protected $fillable = ['id','name','descripcion','totaldeHoras'];
 
     public function proyecto(){
         return $this->belongsTo('App\Proyecto');

@@ -6,12 +6,16 @@
 @section('content')
 
 	<div class="container">
+
   		<h3>{{$proyecto->name}}</h3>
+      <h4>Total de Horas: {{$proyecto->totaldeHoras}} </h4>
+      <h4>Precio/hora: {{$proyecto->precio}} </h4>
+      <h4>Costo total: {{$proyecto->precioTotal}} </h4>
   		<a href="{{route('tarea.create',$proyecto->id)}}" class="btn btn-info">Nueva Tarea</a>
   		<a href="{{route('hora.create',$proyecto->id)}}" class="btn btn-info">Agregar Horas</a>
       <div>      	
       @foreach($proyecto->tareas as $tarea)
-        <h4> <a href=" {{route('tareas.show', $tarea->id)}} "> <span class="label label-success">{{$tarea->name}}</span> </a>
+        <h4> <a href=" {{route('tareas.show', $tarea->id)}} " class="btn btn-success">{{$tarea->name}}</a>
         	<a href="{{ route('tareas.edit', $tarea->id) }}" class="btn btn-warning">   <span class="glyphicon glyphicon-wrench">          
         	  </span>
         	</a>

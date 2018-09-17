@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.css')}}">	
 		<link rel="stylesheet" href="{{ asset('plugins/chosen/chosen.css')}}">
 		<link rel="stylesheet" href="{{ asset('plugins/trumbowyg/dist/ui/trumbowyg.css')}}">
+		<link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/all.css')}}">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 	</head>
 	<body>
@@ -21,7 +22,7 @@
 		<script src="{{asset('plugins/bootstrap/js/bootstrap.js')}}"></script>
 		<script src="{{asset('plugins/chosen/chosen.jquery.js')}}"></script>
 		<script src="{{asset('plugins/trumbowyg/dist/trumbowyg.js')}}"></script>
-		<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+		<script src="{{asset('plugins/fontawesome/js/all.js')}}"></script>
 		@yield('js')
 	</body>
 

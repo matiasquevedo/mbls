@@ -15,7 +15,8 @@ class CartController extends Controller
     //mostrar carrito
     public function show(){
     	$cart = \Session::get('cart');
-    	return $cart;
+        //dd($cart);
+    	return view('admin.cart.cart')->with("cart",$cart);
     }
 
     public function add($id){
@@ -27,4 +28,18 @@ class CartController extends Controller
         return redirect()->route('cart.show');
 
     }
+
+    public function destroy($id){
+        $cart = \Session::get('cart');
+        unset($cart[$id]);
+        \Session::put('cart',$cart);
+        return redirect()->route('cart.show');
+    }
+
+    public function trash(){
+        \Session::forget('cart');
+        return redirect()->route('cart.show');
+    }
+
+    
 }

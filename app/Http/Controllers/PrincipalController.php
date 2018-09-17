@@ -17,12 +17,13 @@ class PrincipalController extends Controller
 
     public function index(){
 
-    	//$matchThese = ['actividades'=>'state' => '1'];
-    	$categories = DB::table('categoryactividadespost')->get();
-    	dd($categories);
-    	//$actividades = Actividad::where($matchThese)->get();
+    	$matchThese = ['state'=>'1'];
+    	$categories = Category::all();
+    	//dd($categories);
+    	//$actividades = Actividad::where($matchThese)->get()->take(3)->inRandomOrder();
+    	$actividades = DB::table('categoryactividadespost')->get();
     	//dd($actividades);
-        return view('home')->with('categories',$categories);
+        return view('home')->with('categories',$categories)->with('actividades',$actividades);
     }
 
 }

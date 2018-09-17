@@ -5,7 +5,7 @@ show tables;
 
 select * from users;
 select * from categories;
-select * from actividades;
+select * from actividades where category_id = 4;
 select * from paquetes;
 select * from actividadPaquete;
 select * from actividadespostview;
@@ -16,6 +16,7 @@ select * from eventospostview;
 select * from proveedores;
 select * from categoryactividadespost;
 select * from proyectos;
+select * from images;
 
 
 
@@ -35,7 +36,8 @@ SELECT actividades.id
 AS actividades, 
 images.foto, 
 actividades.state, 
-actividades.title, 
+actividades.title,
+actividades.precioPublico, 
 categories.name, 
 categories.id 
 AS category_id, 
@@ -85,24 +87,34 @@ AND categories.id = actividades.category_id
 AND images.actividad_id = actividades.id
 ORDER BY actividades.updated_at DESC;
 
-select actividades.id,
-actividades.title,
-actividades.volanta,
-actividades.descripcion,
-actividades.recomendacion,
-actividades.duracion,
-actividades.largo,
-actividades.state,
-actividades.precioPublico,
-actividades.precioProveedor,
-actividades.descuento,
-actividades.updated_at,
-images.foto,
-categories.name, 
-actividades.created_at, actividades.updated_at
-FROM actividades, images, categories WHERE actividades.state = '1';
-AND categories.id = actividades.category_id
-AND images.actividad_id = actividades.id
-ORDER BY actividades.updated_at DESC;
+SELECT actividades.id,
+            actividades.title,
+            actividades.volanta,
+            actividades.descripcion,
+            actividades.recomendacion,
+            actividades.duracion,
+            actividades.largo,
+            actividades.state,
+            categories.name
+            FROM actividades, categories WHERE actividades.state = '1'
+            AND categories.id = actividades.category_id
+            ORDER BY actividades.updated_at DESC;
 
+SELECT 
+        `aventura_embalsa`.`actividades`.`id` AS `actividades`,
+        `aventura_embalsa`.`images`.`foto` AS `foto`,
+        `aventura_embalsa`.`actividades`.`state` AS `state`,
+        `aventura_embalsa`.`actividades`.`title` AS `title`,
+        `aventura_embalsa`.`categories`.`name` AS `name`,
+        `aventura_embalsa`.`categories`.`id` AS `category_id`,
+        `aventura_embalsa`.`actividades`.`created_at` AS `created_at`
+    FROM
+        ((`aventura_embalsa`.`actividades`
+        JOIN `aventura_embalsa`.`categories`)
+        JOIN `aventura_embalsa`.`images`)
+    WHERE
+        ((`aventura_embalsa`.`actividades`.`state` = '1')
+            AND (`aventura_embalsa`.`categories`.`id` = `aventura_embalsa`.`actividades`.`category_id`)
+            AND (`aventura_embalsa`.`images`.`actividad_id` = `aventura_embalsa`.`actividades`.`id`))
+    ORDER BY `aventura_embalsa`.`images`.`actividad_id` DESC
 

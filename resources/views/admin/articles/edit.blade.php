@@ -119,6 +119,25 @@
 		});
 
 		$('#trumbowyg-demo').trumbowyg();
+		$('#trumbowyg-demo2').trumbowyg();
+
+				document.getElementById("upload").onchange = function() {
+					var reader = new FileReader(); //instanciamos el objeto de la api FileReader
+
+		  			reader.onload = function(e) {
+		    		document.getElementById("image2").src = e.target.result;
+		  			};
+
+		  		// read the image file as a data URL.
+		  		reader.readAsDataURL(this.files[0]);
+				};
+
+				function limite_textarea(valor) {   
+		    		total = valor.length;
+		        	document.getElementById('cont').innerHTML = total;
+				}
+
+				
 
 	</script>
 

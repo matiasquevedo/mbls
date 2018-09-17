@@ -19,6 +19,8 @@ use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
+use File;
+use Illuminate\Support\Facades\Storage;
 
 class ActividadesController extends Controller
 {
@@ -61,7 +63,7 @@ class ActividadesController extends Controller
     public function store(Request $request)
     {
         //Manipulacion de Imagenes
-        //dd('todo ok');
+        //dd($request);
         if($request->file('image')){
             $file = $request->file('image');
             $name = 'actividad_' . time() . '.' . $file->getClientOriginalExtension();
@@ -147,10 +149,11 @@ class ActividadesController extends Controller
     public function edit($id)
     {
         $actividad = Actividad::find($id);
+        $image = DB::table('images')->where('actividad_id',$id)->value('foto');
         $actividad->category;
         $proveedores = Proveedor::orderBy('empresa','ASC')->pluck('empresa','id');
         $categories = Category::orderBy('name','ASC')->pluck('name','id');
-        return view('admin.articles.edit')->with('categories',$categories)->with('actividad',$actividad)->with('proveedores',$proveedores);        
+        return view('admin.articles.edit')->with('categories',$categories)->with('actividad',$actividad)->with('proveedores',$proveedores)->with('image',$image);        
     }
 
     /**
@@ -163,6 +166,12 @@ class ActividadesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        dd($request);
+        if ($request->file('image')) {
+            dd("se edito image");
+        } else {
+            dd("la imagen no se toco");
+        }
         $actividad = Actividad::find($id);
         $actividad->fill($request->all());
         $actividad->save();
@@ -183,6 +192,66 @@ class ActividadesController extends Controller
         $actividad->delete();
         flash('Se a eliminado la Actividad ' . $actividad->title)->error();
         return redirect()->route('actividades.index');
+    }
+
+    public function ImagesUpdate(Request $request){
+        $actividad = Actividad::find($request->actividad_id);
+        $imageD = Image::where('actividad_id',$request->actividad_id)->first();
+        //
+        if ($imageD == null) {
+            if($request->file('image')){
+                $file = $request->file('image');
+                $name = 'actividad_' . time() . '.' . $file->getClientOriginalExtension();
+                $path = public_path() . '/images/actividades/';
+                $file->move($path,$name);
+            }
+            $actividad->save();
+            $image = new Image();
+            $image->foto = $name;
+            $image->actividad()->associate($actividad);
+                    
+            $image->save();
+            # code...
+        } else {                    
+            $path = public_path() . '/images/actividades/';
+            if (file_exists($path.$imageD->foto)) {
+                $imageD->delete(); 
+                File::delete($path.$imageD->foto);                if($request->file('image')){
+                    $file = $request->file('image');
+                    $name = 'actividad_' . time() . '.' . $file->getClientOriginalExtension();
+                    $path = public_path() . '/images/actividades/';
+                    $file->move($path,$name);
+                }
+                $actividad->save();
+                $image = new Image();
+                $image->foto = $name;
+                $image->actividad()->associate($actividad);
+                        
+                $image->save();
+            } else {
+                //dd("sin imagen, sin archivo");
+                $path = public_path() . '/images/actividades/';
+                File::delete($path.$imageD->foto);
+                if($request->file('image')){
+                    $file = $request->file('image');
+                    $name = 'actividad_' . time() . '.' . $file->getClientOriginalExtension();
+                    $path = public_path() . '/images/actividades/';
+                    $file->move($path,$name);
+                }                
+                $actividad->save();
+                $image = new Image();
+                $image->foto = $name;
+                $image->actividad()->associate($actividad);
+                        
+                $image->save();
+            }
+        }
+        
+
+        //dd($image);
+        flash('Se a cambiado la imagen de portada de la actividad ' . $actividad->title)->success();
+        return redirect()->route('actividades.show',$actividad->id);
+        
     }
 
     public function eliminarVarios(Request $request){

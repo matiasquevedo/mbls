@@ -55,11 +55,91 @@
   						<h4>Imagen de Portada</h4>
   					</div>
   					<div>
-  						<img src="/images/actividades/{{$image}}" alt="">
+  						<img src="/images/actividades/{{$image}}" width="500">
   					</div>
+
   				</div>
-  				
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModalCenter">
+                <span class="glyphicon glyphicon-wrench">          
+                            </span>
+            </button>    				
   			</div>
 		</div>
 	</div>
+
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLongTitle"> Nueva Imagen de Portada  <a style="float: right" data-dismiss="modal" class="btn btn-danger" > <i class="glyphicon glyphicon-remove"></i> </a> </h3>
+
+
+        </div>
+        <div class="modal-body">
+
+          <div>
+<!-- 
+            <form action="{{route('images.update')}}" method="post" enctype="multipart/form-data">
+              
+              <input type="file" name="image" class="form-control">
+              <input type="submit" class="btn btn-primary" value="save">
+            </form> -->
+
+            {!! Form::open(['route'=>'images.update', 'method'=>'POST', 'enctype'=>'multipart/form-data']) !!}
+            {{csrf_field()}}
+
+            <div class="form-group" style="display: none">
+            {!!Form::text('actividad_id',$actividad->id,null,['class'=>'form-control','required']) !!}
+            </div>
+
+
+              <div class="form-group">
+              {!! Form::label('image','Imagen de Portada*') !!}
+              {!! Form::file('image',['id'=>'upload','name'=>'image']) !!}
+              </div>
+
+              <div class="preview">
+                <img id="image" width="400" height="400">
+              </div>
+
+            <div class="form-group">
+              {!! Form::submit('Crear',['class'=>'btn btn-primary']) !!}
+            </div>
+
+
+
+            {!! Form::close() !!} 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+@endsection
+
+@section('js')
+  <script>
+
+    document.getElementById("upload").onchange = function() {
+      var reader = new FileReader(); //instanciamos el objeto de la api FileReader
+
+        reader.onload = function(e) {
+        document.getElementById("image").src = e.target.result;
+        };
+
+      // read the image file as a data URL.
+      reader.readAsDataURL(this.files[0]);
+    };
+
+    function limite_textarea(valor) {   
+        total = valor.length;
+          document.getElementById('cont').innerHTML = total;
+    }
+
+    
+
+    
+  </script>
+
 @endsection

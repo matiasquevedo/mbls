@@ -18,6 +18,7 @@ class AddMotivosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->longText('descripcion');
+            $table->string('totaldeHoras');
             $table->integer('user_id')->unsigned();
             $table->integer('proyecto_id')->unsigned();
 

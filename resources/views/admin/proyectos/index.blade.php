@@ -17,6 +17,8 @@
         <tr>
           <th>Proyecto</th>
           <th>Precio</th>
+          <th>Total de Horas</th>
+          <th>Total</th>
           <th>Iniciado</th>
         </tr>
       </thead>
@@ -25,6 +27,8 @@
         <tr>
           <td><a href="{{ route('proyectos.show', $proyecto->id) }}">{{$proyecto->name}}</a></td>
           <td>{{$proyecto->precio}}</td>
+          <td>{{$proyecto->totaldeHoras}}</td>
+          <td>{{$proyecto->precioTotal}}</td>
           <td>{{$proyecto->created_at}}</td>
           <td>
             <a href="{{ route('proyectos.edit', $proyecto->id) }}" class="btn btn-warning">   <span class="glyphicon glyphicon-wrench">          

@@ -21,7 +21,7 @@ class ProyectosController extends Controller
     public function index()
     {
         //
-        $proyectos = Proyecto::orderBy('id','ASC')->paginate(20);
+        $proyectos = Proyecto::orderBy('created_at','ASC')->paginate(20);
         return view('admin.proyectos.index')->with('proyectos', $proyectos);
     }
 
@@ -46,6 +46,8 @@ class ProyectosController extends Controller
     {
         //
         $proyecto = new Proyecto($request->all());
+        $proyecto->totaldeHoras = '0';
+        $proyecto->precioTotal = '0';
         $proyecto->save();
         flash('Se a creado el proyecto ' . $proyecto->name)->success();
         return redirect()->route('proyectos.index');
@@ -89,7 +91,8 @@ class ProyectosController extends Controller
     {
         //
         $proyecto = Proyecto::find($id);
-        $proyecto->fill($request->all());        
+        $proyecto->fill($request->all());
+        $proyecto->precioTotal=$proyecto->totaldeHoras*$request->precio;
         $proyecto->save();
         flash('Se a editado el proyecto ' . $proyecto->name)->success();
         return redirect()->route('proyectos.index');

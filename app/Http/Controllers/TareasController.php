@@ -41,6 +41,7 @@ class TareasController extends Controller
         //        dd($request);
         $tarea = new Tarea($request->all());
         $tarea->proyecto_id = $request->proyecto_id;
+        $tarea->totaldeHoras = '0';
         $tarea->user_id = \Auth::user()->id;
         $tarea->save();
         flash('Se a creado la tarea ' . $tarea->name)->success();

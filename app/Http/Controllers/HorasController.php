@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Proyecto;
 use App\Hora;
+use App\Tarea;
 use Illuminate\Support\Facades\DB;
 
 class HorasController extends Controller
@@ -48,6 +49,15 @@ class HorasController extends Controller
         $hora->proyecto_id = $request->proyecto_id;
         $hora->user_id = \Auth::user()->id;
         $hora->save();
+        $tarea = Tarea::find($hora->tarea_id);
+        $tarea->totaldeHoras=$tarea->totaldeHoras+$hora->horas;
+        $tarea->save();        
+        $proyecto = Proyecto::find($hora->proyecto_id);
+        $proyecto->totaldeHoras=$proyecto->totaldeHoras+$request->horas;
+        
+        $proyecto->precioTotal=$proyecto->totaldeHoras*$proyecto->precio;
+        $proyecto->save(); 
+        //dd($proyecto->totaldeHoras,$request->horas);
         flash('Se a creado las horas de trabajo ' . $hora->name)->success();
         return redirect()->route('proyectos.show',$hora->proyecto_id);
     }
@@ -93,6 +103,15 @@ class HorasController extends Controller
         $hora->fill($request->all());
         $hora->tarea_id = $request->tarea_id;        
         $hora->save();
+        
+        $tarea = Tarea::find($hora->tarea_id);
+        $tarea->totaldeHoras=$tarea->totaldeHoras+$hora->horas;
+        $tarea->save();        
+        $proyecto = Proyecto::find($hora->proyecto_id);
+        $proyecto->totaldeHoras=$proyecto->totaldeHoras+$request->horas;
+        
+        $proyecto->precioTotal=$proyecto->totaldeHoras*$proyecto->precio;
+        $proyecto->save();
         flash('Se a editado las horas n°:' . $hora->id)->success();
         return redirect()->route('proyectos.show',$hora->proyecto_id);
     }
@@ -107,6 +126,14 @@ class HorasController extends Controller
     {
         //
         $hora = Hora::find($id);
+        $tarea = Tarea::find($hora->tarea_id);
+        $tarea->totaldeHoras=$tarea->totaldeHoras-$hora->horas;
+        $tarea->save();        
+        $proyecto = Proyecto::find($hora->proyecto_id);
+        $proyecto->totaldeHoras=$proyecto->totaldeHoras-$hora->horas;
+        
+        $proyecto->precioTotal=$proyecto->totaldeHoras*$proyecto->precio;
+        $proyecto->save();
         $hora->delete();
         flash('Se a eliminado las horas del dia' . $hora->fecha)->error();
         return redirect()->route('proyectos.show',$hora->proyecto_id);

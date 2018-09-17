@@ -8,7 +8,7 @@ class Actividad extends Model
 {
     protected $table = "actividades";
 
-    protected $fillable = ['id','title','descripcion','category_id','user_id','recomendacion','proveedor_id','precioPublico','precioProveedor','descuento'];
+    protected $fillable = ['id','title','volanta','duracion','largo','descripcion','category_id','user_id','recomendacion','proveedor_id','precioPublico','precioProveedor','descuento'];
 
     public function category(){
     	return $this->belongsTo('App\Category');
@@ -28,5 +28,9 @@ class Actividad extends Model
 
     public function proveedor(){
         return $this->belongsTo('App\Proveedor');
+    }
+
+    public function scopePost($query){
+        return $query->where('state',1);
     }
 }

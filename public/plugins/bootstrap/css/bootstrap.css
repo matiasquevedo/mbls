@@ -260,12 +260,26 @@ th {
     border: 1px solid #ddd !important;
   }
 }
+/*////////////////////////FUENTES/////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+*/
+
 @font-face {
   font-family: 'Glyphicons Halflings';
 
   src: url('../fonts/glyphicons-halflings-regular.eot');
   src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
+
+
+@font-face {
+  font-family: 'Oski';
+  src: url('../fonts/oskiw.ttf') format('truetype');
+}
+
 .glyphicon {
   position: relative;
   top: 1px;
@@ -6795,4 +6809,74 @@ button.close {
   padding: 15px 15px 15px 100px; 
   background-color: #b2b2b2;
 }
+
+.header-text{
+  position: relative !important;
+  height: 100% !important;
+  top: 50% !important;
+}
+
+.header-text h1{
+  font-family: Oski !important;
+  color: white;
+}
+
+.full-width{
+  width: 100% !important;
+}
+
+.full-width > .input-group{
+  width: 100% !important;
+  height: 50px;
+  font-size: 20px;
+}
+
+.full-width > .input-group > .form-control{
+  width: 100% !important;
+  height: 50px;
+  font-size: 20px;
+}
+
+.masonry-column {
+  padding: 0 1px;
+}
+
+.masonry-grid > div .thumbnail {
+  margin: 5px 1px;
+}
+
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row.display-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.badge-notify {
+   position: relative;
+   background:#016648;
+   top: -3px;
+}
+.fa-shopping-cart{
+  position: relative;
+  
+  color:#016648;
+  font-size: 20px;
+}
+
+#search{
+  color: white;
+  background-color:#016648;
+  border-color: #016648;
+}
+
+.logo{
+  font-size:80px; 
+  font-family: Oski !important;
+  color: black;
+}
+
 
