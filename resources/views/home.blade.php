@@ -47,43 +47,16 @@
     </div>
       @foreach($actividades as $actividad)                        
         @if($category->id == $actividad->category_id)
-        @if(count($category->actividades->where('state', 1)) % 4 == 0)
-          <div class="col-lg-3">
+          <div class="col-lg-6">
             <div class="panel panel-default">
-              <div class="panel-body">
+              <div class="panel-body text-center">
                 <img src="/images/actividades/{{$actividad->foto}}" style="max-width: 100%;object-fit: contain';">
               </div>              
-              <div class="panel-heading">{{$actividad->title}} desde ${{$actividad->precioPublico}}</div>
+              <div class="panel-heading">{{$actividad->title}} desde ${{$actividad->precioPublico}} <a href=" {{route('cart.add',$actividad->actividades)}} " class="btn btn-warning"> <i class="fas fa-cart-plus"></i>
+            </a> </div>
             </div>
           </div>
-        @elseif(count($category->actividades->where('state', 1)) % 3 == 0)
-          <div class="col-lg-4">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <img src="/images/actividades/{{$actividad->foto}}" style="max-width: 100%;">
-                </div>              
-                <div class="panel-heading">{{$actividad->title}} desde ${{$actividad->precioPublico}}</div>
-              </div>              
-          </div>
-        @elseif(count($category->actividades->where('state', 1)) % 2 == 0)
-          <div class="col-lg-6">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <img src="/images/actividades/{{$actividad->foto}}" style="max-width: 100%;">
-                </div>              
-                <div class="panel-heading">{{$actividad->title}} desde ${{$actividad->precioPublico}}</div>
-              </div>              
-          </div>
-        @else
-          <div class="col-lg-12">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <img src="/images/actividades/{{$actividad->foto}}" style="max-width: 100%;">
-                </div>              
-                <div class="panel-heading">{{$actividad->title}} desde ${{$actividad->precioPublico}}</div>
-              </div>              
-          </div>
-        @endif
+        
         @endif
       @endforeach
  </div>

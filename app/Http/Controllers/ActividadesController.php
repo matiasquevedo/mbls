@@ -165,13 +165,7 @@ class ActividadesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        dd($request);
-        if ($request->file('image')) {
-            dd("se edito image");
-        } else {
-            dd("la imagen no se toco");
-        }
+
         $actividad = Actividad::find($id);
         $actividad->fill($request->all());
         $actividad->save();
