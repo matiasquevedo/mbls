@@ -18,7 +18,8 @@ class CartController extends Controller
     	return $cart;
     }
 
-    public function add($id){
+    public function add(Request $request){
+        dd($request);
     	$actividad = Actividad::find($id);
     	$cart = \Session::get('cart');
 

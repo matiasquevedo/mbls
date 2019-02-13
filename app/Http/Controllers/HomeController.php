@@ -43,4 +43,8 @@ class HomeController extends Controller
         
         
     }
+
+    public function inicio(){
+        return redirect()->route('principal');
+    }
 }

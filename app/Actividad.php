@@ -8,7 +8,7 @@ class Actividad extends Model
 {
     protected $table = "actividades";
 
-    protected $fillable = ['id','title','descripcion','category_id','user_id','recomendacion','proveedor_id','precioPublico','precioProveedor','descuento'];
+    protected $fillable = ['id','title', 'volanta', 'descripcion', 'recomendacion', 'category_id', 'proveedor_id', 'precioProveedor', 'precioPublico', 'descuento', 'user_id','duracion','largo'];
 
     public function category(){
     	return $this->belongsTo('App\Category');
@@ -30,3 +30,5 @@ class Actividad extends Model
         return $this->belongsTo('App\Proveedor');
     }
 }
+
+

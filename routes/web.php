@@ -53,6 +53,12 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']], function(){
 		'as'=>'actividades.undpost'
 	]);
 
+	/*
+	Route::post('actividades/image/update',[ 
+		'uses'=>'ActividadesController@ImagesUpdate',
+		'as'=>'images.update'
+	]);*/
+
 	
 
 	Route::get('eventos',[
@@ -228,6 +234,17 @@ Route::group(['prefix'=>'editor','middleware'=>['auth','editor']], function(){
 		'as'=>'editor.documentacion'
 	]);
 
+	//////////////Carrito
+	Route::get('cart/show',[
+		'uses'=>'CartController@show',
+		'as'=>'cart.show'
+	]);
+
+	Route::post('cart',[
+		'uses'=>'CartController@add',
+		'as'=>'cart.add'
+	]);
+
 
 	
 	/*
@@ -265,12 +282,17 @@ Route::group(['prefix'=>'ventas','middleware'=>['auth','ventas']], function(){
 });
 
 
-
+Auth::routes();
 #
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@inicio');
 Route::get('/inicio', [
 	'uses'=>'PrincipalController@index',
 	'as'=>'principal'
+]);
+
+Route::get('actividad/{actividad}',[
+	'uses'=>'PrincipalController@actividadPublic',
+	'as'=>'actividad.public'
 ]);
 
 
@@ -289,17 +311,7 @@ Route::get('pagar/status',[
 	'as'=>'pagar.status'
 ]);
 
-//////////////Carrito
-Route::get('cart/show',[
-	'uses'=>'CartController@show',
-	'as'=>'cart.show'
-]);
-
-Route::get('cart/add/{actividad}',[
-	'uses'=>'CartController@add',
-	'as'=>'cart.add'
-]);
 
 
 
-Auth::routes();
+

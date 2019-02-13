@@ -343,7 +343,7 @@ class ActividadesController extends Controller
 
     public function ApiIndex(){
         $actividades = DB::table('actividadespostview')->get();
-        dd($actividades);
+        //dd($actividades);
         $json = json_decode($actividades,true);
         return response()->json(array('result'=>$json));
     }
